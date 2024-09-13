@@ -25,6 +25,23 @@ white: #f8f8ff
     margin: 0;
   }
 
+  #greetings-screen{
+    visibility: hidden;
+    background-color: white;
+    color: black;
+    z-index: 2;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    position: absolute;
+    top: 30%;
+  }
+
+  #name-input{
+    border: none
+  }
+
   #game-screen{
     display: grid;
     grid-template-rows: .5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -74,3 +91,4 @@ white: #f8f8ff
     border-width: 2px;
     border-color: black;
   }
+  
