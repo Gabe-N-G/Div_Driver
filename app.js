@@ -1,15 +1,15 @@
 console.log ("Hello world!")
 
 const gameBoard = [
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
+    ["x","","","",""],
+    ["","x","","",""],
+    ["","","x","",""],
+    ["","","","x",""],
+    ["","","","","x"],
+    ["","","","x",""],
+    ["","","x","",""],
+    ["","x","","",""],
+    ["x","","","a",""],
 ]
 
 
@@ -47,6 +47,14 @@ const nameInput = document.querySelector("#name-input")
 const startBtn = document.querySelector("#Start")
 const greet = document.querySelector("#greetings-screen")
 const hiScores = document.querySelector("#highscores")
+const row = document.querySelectorAll(".row")
+
+//renders game board to 
+row.forEach((y,idy)=> 
+    y.querySelectorAll(".column").forEach((x,idx) => 
+        x.innerText = gameBoard[idy][idx])
+)
+
 
 //gamestart
 startBtn.addEventListener("click",()=>{
@@ -60,6 +68,7 @@ startBtn.addEventListener("click",()=>{
     }
     console.log(name,score) 
 })
+
 
 //top 3 scores
 for (i=0; i<3; i++){
