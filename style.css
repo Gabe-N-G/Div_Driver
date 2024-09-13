@@ -1,0 +1,76 @@
+/* Notes, grid for game port is 11 high (including game field) 5 wide 
+
+colors:
+
+green: #228b22
+blue: #273Be2
+purple: #8f00ff
+grey: #536878
+white: #f8f8ff
+*/
+
+* {
+    box-sizing: border-box
+  }
+  
+  body {
+    background-color: #8f00ff;
+    /* Use a system font, if none are available use an available sans-sarif font */
+    font-family: "azeret-mono", monospace;
+    font-weight: 100;
+    font-style: normal;
+    /* Ensures full height compatibility across devices */
+    color: #f8f8ff;
+    min-height: 100dvh;
+    margin: 0;
+  }
+
+  #game-screen{
+    display: grid;
+    grid-template-rows: .5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  header h1{
+    display: flex;
+    align-items: center;
+    /* align-self: center; */
+    /* justify-self: center; */
+    flex-direction: column;
+  }
+
+  .info{
+    display:flex;
+    flex-direction: row;
+    /* align-items: space-around; */
+    justify-content: space-around;
+}
+
+  .row {
+    background-color: #536878;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .row div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+  }
+
+  #controls{
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  #controls div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+  }
