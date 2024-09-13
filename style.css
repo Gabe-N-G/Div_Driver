@@ -26,7 +26,6 @@ white: #f8f8ff
   }
 
   #greetings-screen{
-    visibility: hidden;
     background-color: white;
     color: black;
     z-index: 2;
