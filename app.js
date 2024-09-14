@@ -9,11 +9,11 @@ const gameBoard = [
     ["","","","x",""],
     ["","","x","",""],
     ["","x","","",""],
-    ["x","","","a",""],
+    ["x","","","",""],
 ]
 
 
-const playerBoard = [
+const playerBoard = [ //for visualization only
     ["","","","",""],
     ["","","","",""],
     ["","","","",""],
@@ -24,6 +24,12 @@ const playerBoard = [
     ["","","🚘","",""],
     ["","","","",""],
 ]
+
+let player = {
+    y:7,
+    x:2,
+    character: "🚘"
+}
 
 const emptyRow = ["","","","",""]
 
@@ -48,13 +54,23 @@ const startBtn = document.querySelector("#Start")
 const greet = document.querySelector("#greetings-screen")
 const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
+// const test = document.querySelector("y0x0")
 
-//renders game board to 
-row.forEach((y,idy)=> 
-    y.querySelectorAll(".column").forEach((x,idx) => 
-        x.innerText = gameBoard[idy][idx])
-)
 
+
+//renders screen to match gamebaord 
+function renderBoard(){
+    row.forEach((y,idy)=> 
+        y.querySelectorAll(".column").forEach((x,idx) => 
+            x.innerText = gameBoard[idy][idx])
+    )
+}
+
+//renders player to player coordinates
+function updatePlayer(){
+    let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+    playerDiv.innerText = player.character
+}
 
 //gamestart
 startBtn.addEventListener("click",()=>{
@@ -76,4 +92,37 @@ for (i=0; i<3; i++){
     top3.appendChild(document.createTextNode(highScoreArr[i].name + "    " + highScoreArr[i].score))
     hiScores.appendChild(top3)
 }
+
+
+//player movement here
+function movePlayer(){
+    window.addEventListener(
+        "keydown",(e) =>{
+            if (e.key === "ArrowRight"){
+                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+                playerDiv.innerText = ""
+                player.x++
+                updatePlayer()
+            } else if(e.key === "ArrowLeft"){
+                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+                playerDiv.innerText = ""
+                player.x--
+                updatePlayer()
+            } else if(e.key === "ArrowUp"){
+                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+                playerDiv.innerText = ""
+                player.y--
+                updatePlayer()
+            } else if(e.key === "ArrowDown"){
+                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+                playerDiv.innerText = ""
+                player.y++
+                updatePlayer()
+            }
+        }
+    )
+}
+renderBoard()
+updatePlayer()
+movePlayer()
 
