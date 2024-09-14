@@ -1,15 +1,15 @@
 console.log ("Hello world!")
 
 const gameBoard = [
-    ["x","","","",""],
-    ["","x","","",""],
-    ["","","x","",""],
-    ["","","","x",""],
-    ["","","","","x"],
-    ["","","","x",""],
-    ["","","x","",""],
-    ["","x","","",""],
-    ["x","","","",""],
+    ["X","","","",""],
+    ["","X","","",""],
+    ["","","X","",""],
+    ["","","","X",""],
+    ["","","","","X"],
+    ["","","","X",""],
+    ["","","X","",""],
+    ["","X","","",""],
+    ["X","","","",""],
 ]
 
 
@@ -137,7 +137,7 @@ function movePlayerKB(){
     )
 } 
 
-function movePlayerButtons(){
+function movePlayerButtons(){ // can I combined with keyboard controls with and/ors?
     controlsEL.addEventListener(
         "click",(e) =>{
             console.log(e.target.id)

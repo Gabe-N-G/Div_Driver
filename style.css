@@ -66,6 +66,8 @@ white: #f8f8ff
     background-color: #536878;
     display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    color: red;
+    font-size: 4rem;
   }
 
   .row div{
