@@ -177,7 +177,6 @@ function movePlayerButtons(){ // can I combined with keyboard controls with and/
 } 
 
 
-console.log(obsBoard.length)
 let updateTimer = "1000"
 setInterval(updateBoard,updateTimer)
 function updateBoard(){
@@ -195,3 +194,4 @@ renderBoard()
 updatePlayer()
 movePlayerKB()
 movePlayerButtons()
+
