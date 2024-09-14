@@ -1,17 +1,30 @@
 console.log ("Hello world!")
 
 const gameBoard = [
-    ["X","","","",""],
-    ["","X","","",""],
-    ["","","X","",""],
-    ["","","","X",""],
-    ["","","","","X"],
-    ["","","","X",""],
-    ["","","X","",""],
-    ["","X","","",""],
-    ["X","","","",""],
+    ["","","","",""],
+    ["","","","",""],
+    ["","","","",""],
+    ["L","E","","T","S"],
+    ["","","","",""],
+    ["","G","","O",""],
+    ["","","","",""],
+    ["","","","",""],
+    ["","","","",""],
 ]
 
+
+const obsBoard = [ //manually made, probably can make programially
+    ["X","","","",""],
+    ["","X","","",""],
+    ["","","X","",""],
+    ["","","","x",""],
+    ["","","","","X"],
+    ["X","X","","",""],
+    ["","","","X","X"],
+    ["X","","X","","X"],
+    ["","X","","X",""],
+    ["X","","","","X"]
+]
 
 const playerBoard = [ //for visualization only
     ["","","","",""],
@@ -83,8 +96,7 @@ startBtn.addEventListener("click",()=>{
         timer++
         score = timer * 10
         scoreEL.innerText = `Score: ${score}`
-    }
-    console.log(name,score) 
+    } 
 })
 
 
@@ -99,20 +111,22 @@ for (i=0; i<3; i++){
 function collisionCheck(){
     if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
         playerDiv.innerText = "💥"
-        console.log("you crashed :(")
+        console.log("you crashed :(") 
+        // game over behavior here
     } else {
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
         }
              if (playerDiv.innerText) {
                 playerDiv.innerText = "💥"
                 console.log("you crashed :(")
+                //game over behavior here
             } else {
                 updatePlayer()
     }
 }
 
 
-//player movement keybaord here
+//player movement keyboard here
 function movePlayerKB(){
     window.addEventListener(
         "keydown",(e) =>{
@@ -163,6 +177,18 @@ function movePlayerButtons(){ // can I combined with keyboard controls with and/
 } 
 
 
+console.log(obsBoard.length)
+let updateTimer = "1000"
+setInterval(updateBoard,updateTimer)
+function updateBoard(){
+    let rngIndex = Math.floor(Math.random() * obsBoard.length)
+    gameBoard.unshift(obsBoard[rngIndex])
+    // gameBoard.unshift(emptyRow)
+    gameBoard.pop()
+    renderBoard()
+    collisionCheck()
+    updateTimer--
+}
 
 
 renderBoard()
