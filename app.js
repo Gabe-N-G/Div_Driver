@@ -57,7 +57,7 @@ const startBtn = document.querySelector("#Start")
 const greet = document.querySelector("#greetings-screen")
 const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
-
+const controlsEL = document.querySelector("#controls")
 
 
 //renders screen to match gamebaord 
@@ -74,7 +74,7 @@ function updatePlayer(){
     playerDiv.innerText = player.character
 }
 
-//gamestart
+//gamestart 
 startBtn.addEventListener("click",()=>{
     greet.style.display = "none"
     name = nameInput.value
@@ -112,8 +112,8 @@ function collisionCheck(){
 }
 
 
-//player movement here
-function movePlayer(){
+//player movement keybaord here
+function movePlayerKB(){
     window.addEventListener(
         "keydown",(e) =>{
             if (e.key === "ArrowRight"){
@@ -135,12 +135,37 @@ function movePlayer(){
             }
         }
     )
-}
+} 
+
+function movePlayerButtons(){
+    controlsEL.addEventListener(
+        "click",(e) =>{
+            console.log(e.target.id)
+            if (e.target.id === "right"){
+                playerDiv.innerText = ""
+                player.x++
+                collisionCheck()
+            } else if(e.target.id === "left"){
+                playerDiv.innerText = ""
+                player.x--
+                collisionCheck()
+            } else if(e.target.id === "up"){
+                playerDiv.innerText = ""
+                player.y--
+                collisionCheck()
+            } else if(e.target.id === "down"){
+                playerDiv.innerText = ""
+                player.y++
+                collisionCheck()
+            }
+        }
+    )
+} 
 
 
 
 
 renderBoard()
 updatePlayer()
-movePlayer()
-
+movePlayerKB()
+movePlayerButtons()
