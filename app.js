@@ -42,10 +42,13 @@ let sortedScore = highScoreArr.sort((a,b) =>(b.score -a.score))
 
 let name = ""
 let score = 0
+
 highScoreArr.push( {name, score})
 
 let lives = 0
 let timer = 0
+
+let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
 
 const scoreEL = document.querySelector("#score")
 const livesEL = document.querySelector("#lives")
@@ -54,7 +57,6 @@ const startBtn = document.querySelector("#Start")
 const greet = document.querySelector("#greetings-screen")
 const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
-// const test = document.querySelector("y0x0")
 
 
 
@@ -68,7 +70,7 @@ function renderBoard(){
 
 //renders player to player coordinates
 function updatePlayer(){
-    let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+    playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
     playerDiv.innerText = player.character
 }
 
@@ -93,35 +95,51 @@ for (i=0; i<3; i++){
     hiScores.appendChild(top3)
 }
 
+//checks if space is occupieed
+function collisionCheck(){
+    if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
+        playerDiv.innerText = "💥"
+        console.log("you crashed :(")
+    } else {
+    playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
+        }
+             if (playerDiv.innerText) {
+                playerDiv.innerText = "💥"
+                console.log("you crashed :(")
+            } else {
+                updatePlayer()
+    }
+}
+
 
 //player movement here
 function movePlayer(){
     window.addEventListener(
         "keydown",(e) =>{
             if (e.key === "ArrowRight"){
-                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
                 playerDiv.innerText = ""
                 player.x++
-                updatePlayer()
+                collisionCheck()
             } else if(e.key === "ArrowLeft"){
-                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
                 playerDiv.innerText = ""
                 player.x--
-                updatePlayer()
+                collisionCheck()
             } else if(e.key === "ArrowUp"){
-                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
                 playerDiv.innerText = ""
                 player.y--
-                updatePlayer()
+                collisionCheck()
             } else if(e.key === "ArrowDown"){
-                let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
                 playerDiv.innerText = ""
                 player.y++
-                updatePlayer()
+                collisionCheck()
             }
         }
     )
 }
+
+
+
+
 renderBoard()
 updatePlayer()
 movePlayer()
