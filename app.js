@@ -1,12 +1,12 @@
 console.log ("Hello world!")
 
 const gameBoard = [
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
     ["L","E","","T","S"],
-    ["","","","",""],
     ["","G","","O",""],
+    ["","","","",""],
+    ["","","","",""],
+    ["","","","",""],
+    ["","","","",""],
     ["","","","",""],
     ["","","","",""],
     ["","","","",""],
@@ -20,13 +20,29 @@ const obsBoard = [ //manually made, probably can make programially
     ["","","","x",""],
     ["","","","","X"],
     ["X","X","","",""],
-    ["","","","X","X"],
-    ["X","","X","","X"],
+    ["X","","X","",""],
+    ["X","","","X",""],
+    ["X","","","","X"],
+    ["","X","X","",""],
     ["","X","","X",""],
-    ["X","","","","X"]
+    ["","X","","","X"],
+    ["","","X","X",""],
+    ["","","X","","X"],
+    ["","","","X","X"],
+    ["X","X","X","",""],
+    ["X","X","","X",""],
+    ["X","X","","","X"],
+    ["","X","X","X",""],
+    ["","X","X","","X"],
+    ["","","X","X","X"],
+    ["X","X","X","X",""],
+    ["","X","X","X","X"],
+    ["X","","X","X","X"],
+    ["X","X","","X","X"],
+    ["X","X","X","","X"],
 ]
 
-const playerBoard = [ //for visualization only
+const playerBoard = [ //for visualization only player is currently at [7][2]
     ["","","","",""],
     ["","","","",""],
     ["","","","",""],
@@ -177,17 +193,42 @@ function movePlayerButtons(){ // can I combined with keyboard controls with and/
 } 
 
 
-let updateTimer = "1000"
-setInterval(updateBoard,updateTimer)
-function updateBoard(){
-    let rngIndex = Math.floor(Math.random() * obsBoard.length)
-    gameBoard.unshift(obsBoard[rngIndex])
-    // gameBoard.unshift(emptyRow)
-    gameBoard.pop()
-    renderBoard()
-    collisionCheck()
-    updateTimer--
-}
+let altRow = true
+setInterval(updateBoard,500)
+    function updateBoard(){
+        if (altRow === true){
+            gameBoard.unshift(emptyRow)
+        } if (altRow === false){
+            let rngIndex = Math.floor(Math.random() * obsBoard.length)
+            gameBoard.unshift(obsBoard[rngIndex])
+        }
+        altRow = !altRow
+        gameBoard.pop()
+        renderBoard()
+        collisionCheck()
+        }
+
+
+// Eventually will code in acceleration 
+//
+// let updateTimer = 1000
+// setInterval(updateBoard,1000)
+//     function updateBoard(){
+//         setTimeout(timedown,updateTimer)
+//             function timedown(){
+//                 console.log(updateTimer)
+//                 let rngIndex = Math.floor(Math.random() * obsBoard.length)
+//                 gameBoard.unshift(obsBoard[rngIndex])
+//                 // gameBoard.unshift(emptyRow)
+//                 gameBoard.pop()
+//                 renderBoard()
+//                 collisionCheck()
+//                 updateTimer--
+//                 updateBoard()
+//             }
+//         }
+
+
 
 
 renderBoard()
