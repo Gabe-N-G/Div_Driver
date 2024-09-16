@@ -88,6 +88,8 @@ const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
 const controlsEL = document.querySelector("#controls")
 
+let gameRunning = false
+
 let storeInterval;
 let moveInterval
 
@@ -109,8 +111,10 @@ function updatePlayer(){
 
 //gamestart 
 function gameStart(){
+    console.log(gameRunning)
     bestThree()    
     startBtn.addEventListener("click",()=>{
+        gameRunning = true
         greet.style.display = "none"
         name = nameInput.value
         scoreInterval = setInterval(time,100)
@@ -121,12 +125,11 @@ function gameStart(){
     } 
         console.log(name)
         moveBoard()
-        movePlayerKB()
-        movePlayerButtons()
     })
 }
 
 function gameEnd(){
+    gameRunning = false
     greet.style.display = "flex"
     console.log (name + " " + score)
     highScoreArr.push({name, score})
@@ -149,7 +152,6 @@ function gameEnd(){
         ["","","","",""],
         ["","","","",""],)
     bestThree()
-    
     name = ""
     score = ""
 
@@ -191,6 +193,7 @@ function collisionCheck(){
 
 //player movement keyboard here
 function movePlayerKB(){
+    if (gameRunning = true){
     window.addEventListener(
         "keydown",(e) =>{
             if (e.key === "ArrowRight"){
@@ -207,30 +210,41 @@ function movePlayerKB(){
                 player.y++
             }
             collisionCheck()
-        }
-    )
+        })
+    } else {
+
+    }
 } 
+
+//global variable game running
+// if true, do the event listners
+// if false, do nothing
+
 function movePlayerButtons(){ // can I combined with keyboard controls with and/ors?
-    controlsEL.addEventListener(
-        "click",(e) =>{
-            console.log(e.target.id)
-            if (e.target.id === "right"){
-                playerDiv.innerText = ""
-                player.x++
-            } else if(e.target.id === "left"){
-                playerDiv.innerText = ""
-                player.x--
-            } else if(e.target.id === "up"){
-                playerDiv.innerText = ""
-                player.y--
-            } else if(e.target.id === "down"){
-                playerDiv.innerText = ""
-                player.y++
-            }
-            collisionCheck()
-        }
-    )
-} 
+    if (gameRunning = true){
+        controlsEL.addEventListener(
+            "click",(e) =>{
+                console.log(e.target.id)
+                if (e.target.id === "right"){
+                    playerDiv.innerText = ""
+                    player.x++
+                } else if(e.target.id === "left"){
+                    playerDiv.innerText = ""
+                    player.x--
+                } else if(e.target.id === "up"){
+                    playerDiv.innerText = ""
+                    player.y--
+                } else if(e.target.id === "down"){
+                    playerDiv.innerText = ""
+                    player.y++
+                }
+                collisionCheck()
+        })
+    } else {
+
+    }
+ }
+
 
 
 function moveBoard(){
@@ -274,5 +288,5 @@ gameStart()
 renderBoard()
 updatePlayer()
 // moveBoard()
-// movePlayerKB()
-// movePlayerButtons()
+movePlayerKB()
+movePlayerButtons()
