@@ -72,6 +72,7 @@ let lives = 0
 let timer = 0
 let moveTimer = 1000
 let altRow = true
+let isRunning = false
 
 
 
@@ -111,6 +112,7 @@ function updatePlayer(){
 function gameStart(){
     bestThree()    
     startBtn.addEventListener("click",()=>{
+        renderBoard()
         moveKB()
         movePlayerButtons()
         greet.style.display = "none"
@@ -122,17 +124,21 @@ function gameStart(){
                 score = scoreTimer * 100
                 scoreEL.innerText = `Score: ${score}`
     } 
+    isRunning = true
         moveBoard()
     })
 }
 
 function gameEnd(){
+    isRunning = false
     greet.style.display = "flex"
     highScoreArr.push({name, score})
-    clearTimeout(speedTimeout)
+    // clearTimeout(speedTimeout)
     clearInterval(scoreInterval)
     clearInterval(moveInterval)
     // console.log(highScoreArr)
+    altRow = true
+    moveTimer = 1000
     player.x = 2
     player.y = 7
     player.character = "🚖"
@@ -147,10 +153,12 @@ function gameEnd(){
         ["","","","",""],
         ["","","","",""],
         ["","","","",""],)
+    // renderBoard()
     bestThree()
     name = ""
     controlsEL.removeEventListener("click", moveCarM)
     window.removeEventListener("keydown", moveCarM)
+    
 }
 
 //top 3 scores
@@ -217,9 +225,39 @@ function moveCarM(e) {
 }
 
 //test version with accelration
+function moveBoard(){
+        moveInterval = setInterval(updateBoard,moveTimer)
+        collisionCheck()
+                console.log(moveTimer)
+                function updateBoard(){
+                    if (altRow === true){
+                        gameBoard.unshift(emptyRow)
+                    } if (altRow === false){
+                        let rngIndex = Math.floor(Math.random() * obsBoard.length)
+                        gameBoard.unshift(obsBoard[rngIndex])
+                    }
+                    altRow = !altRow
+                    gameBoard.pop()
+                    renderBoard()
+                    speedTimeout = setTimeout(timedown)
+                        function timedown(){
+                        if(moveTimer >250){
+                            clearInterval(moveInterval)
+                            moveTimer = moveTimer - 25
+                            moveBoard()
+                        } else{
+                            clearInterval(moveInterval)
+                            moveTimer = 250
+                            moveBoard()
+                        }  
+                    }
+                }   
+}
+
+// no acceleration version
 // function moveBoard(){
-//     moveInterval = setInterval(updateBoard,moveTimer)
-//             console.log(moveTimer)
+//     moveInterval = setInterval(updateBoard,500)
+//             let altRow = true
 //             function updateBoard(){
 //                 if (altRow === true){
 //                     gameBoard.unshift(emptyRow)
@@ -231,40 +269,8 @@ function moveCarM(e) {
 //                 gameBoard.pop()
 //                 renderBoard()
 //                 collisionCheck()
-//                 speedTimeout = setTimeout(timedown)
-//                     function timedown(){
-//                         // console.log(moveTimer)
-//                     if(moveTimer >250){
-//                         clearInterval(moveInterval)
-//                         moveTimer = moveTimer- 50
-//                         moveBoard()
-//                     } else{
-//                         clearInterval(moveInterval)
-//                         moveTimer = 250
-//                         moveBoard()
-//                     }
-//                 }   
 //             }
 //         }
-
-
-// working version
-function moveBoard(){
-    moveInterval = setInterval(updateBoard,500)
-            let altRow = true
-            function updateBoard(){
-                if (altRow === true){
-                    gameBoard.unshift(emptyRow)
-                } if (altRow === false){
-                    let rngIndex = Math.floor(Math.random() * obsBoard.length)
-                    gameBoard.unshift(obsBoard[rngIndex])
-                }
-                altRow = !altRow
-                gameBoard.pop()
-                renderBoard()
-                collisionCheck()
-            }
-        }
 
 
 
