@@ -77,7 +77,6 @@ let lives = 0
 let timer = 0
 
 
-
 let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
 
 const scoreEL = document.querySelector("#score")
@@ -88,6 +87,10 @@ const greet = document.querySelector("#greetings-screen")
 const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
 const controlsEL = document.querySelector("#controls")
+
+let storeInterval;
+let moveInterval
+
 
 
 //renders screen to match gameboard 
@@ -106,16 +109,16 @@ function updatePlayer(){
 
 //gamestart 
 function gameStart(){
-    bestThree()
+    bestThree()    
     startBtn.addEventListener("click",()=>{
         greet.style.display = "none"
         name = nameInput.value
-        const scoreInterval = setInterval(time,100)
+        scoreInterval = setInterval(time,100)
             function time(){
-            scoreTimer++
-            score = scoreTimer *100
-            scoreEL.innerText = `Score: ${score}`
-        } 
+                scoreTimer++
+                score = scoreTimer *100
+                scoreEL.innerText = `Score: ${score}`
+    } 
         console.log(name)
         moveBoard()
         movePlayerKB()
@@ -127,16 +130,36 @@ function gameEnd(){
     greet.style.display = "flex"
     console.log (name + " " + score)
     highScoreArr.push({name, score})
-    // clearInterval(scoreInterval)
+    clearInterval(scoreInterval)
+    clearInterval(moveInterval)
     console.log(highScoreArr)
+    player.x = 2
+    player.y = 7
+    player.character = "🚖"
+    gameBoard.splice(0,9)
+    console.log(gameBoard)
+    gameBoard.push(
+        ["L","E","","T","S"],
+        ["","G","","O",""],
+        ["","","","",""],
+        ["","","","",""],
+        ["","","","",""],
+        ["","","","",""],
+        ["","","","",""],
+        ["","","","",""],
+        ["","","","",""],)
     bestThree()
+    
     name = ""
     score = ""
-    
+
 }
 
 //top 3 scores
 function bestThree(){
+    while(hiScores.firstChild){
+        hiScores.removeChild(hiScores.firstChild)
+    }
     for (i=0; i<3; i++){
         let top3 = document.createElement("li")
         sortedScore = highScoreArr.sort((a,b) =>(b.score -a.score))    
@@ -211,7 +234,7 @@ function movePlayerButtons(){ // can I combined with keyboard controls with and/
 
 
 function moveBoard(){
-    setInterval(updateBoard,500)
+    moveInterval = setInterval(updateBoard,500)
             let altRow = true
             function updateBoard(){
                 if (altRow === true){
@@ -253,4 +276,3 @@ updatePlayer()
 // moveBoard()
 // movePlayerKB()
 // movePlayerButtons()
-
