@@ -70,6 +70,7 @@ let scoreTimer = 0
 let score = 0
 let lives = 0
 let timer = 0
+let moveTimer = 1000
 
 
 let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
@@ -110,7 +111,7 @@ function gameStart(){
         moveKB()
         movePlayerButtons()
         greet.style.display = "none"
-        name = nameInput.value
+        name = nameInput.value.toUpperCase()
         scoreTimer = 0
         scoreInterval = setInterval(time,100)
             function time(){
@@ -118,23 +119,20 @@ function gameStart(){
                 score = scoreTimer * 100
                 scoreEL.innerText = `Score: ${score}`
     } 
-        console.log(name)
         moveBoard()
     })
 }
 
 function gameEnd(){
     greet.style.display = "flex"
-    console.log (name + " " + score)
     highScoreArr.push({name, score})
     clearInterval(scoreInterval)
     clearInterval(moveInterval)
-    console.log(highScoreArr)
+    // console.log(highScoreArr)
     player.x = 2
     player.y = 7
     player.character = "🚖"
     gameBoard.splice(0,9)
-    console.log(gameBoard)
     gameBoard.push(
         ["L","E","","T","S"],
         ["","G","","O",""],
@@ -165,17 +163,20 @@ function bestThree(){
 }
 
 //checks if space is occupieed
+//console logs for debugging
 function collisionCheck(){
+    // console.log("Player X: " + player.x  +"Player Y: " + player.y)
     if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
         playerDiv.innerText = "💥"
-        console.log("you crashed :(") 
+        // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y) 
         gameEnd()
     } else {
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
         }
-             if (playerDiv.innerText) {
+             if (playerDiv.innerText === "X") {
+                console.log(playerDiv.innerText)
                 playerDiv.innerText = "💥"
-                console.log("you crashed :(")
+                // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y)
                 gameEnd()
             } else {
                 updatePlayer()
@@ -189,12 +190,11 @@ function movePlayerButtons(){
 
  //adding keyboard controls
 function moveKB(){
-    window.addEventListener("keydown",moveCarM)
+    window.addEventListener("keydown", moveCarM)
 } 
 
 //catch-all function for both control types
 function moveCarM(e) {
-    console.log(e.target.id)
     if (e.target.id === "right" || e.key === "ArrowRight"){
         playerDiv.innerText = ""
         player.x++
@@ -211,8 +211,32 @@ function moveCarM(e) {
     collisionCheck()
 }
 
+//test version with accelration
+// function moveBoard(){
+//     moveInterval = setInterval(updateBoard,moveTimer)
+//             console.log(moveTimer)
+//             let altRow = true
+//             function updateBoard(){
+//                 if (altRow === true){
+//                     gameBoard.unshift(emptyRow)
+//                 } if (altRow === false){
+//                     let rngIndex = Math.floor(Math.random() * obsBoard.length)
+//                     gameBoard.unshift(obsBoard[rngIndex])
+//                 }
+//                 altRow = !altRow
+//                 gameBoard.pop()
+//                 renderBoard()
+//                 collisionCheck()
+//                 setTimeout(timedown)
+//                     function timedown(){
+//                         moveTimer--
+//                         moveBoard()
+//                 }   
+//             }
+//         }
+//clears timer, sets to faster at ???
 
-//unshifts alternating obsticle arrays and empty arrays
+// working version
 function moveBoard(){
     moveInterval = setInterval(updateBoard,500)
             let altRow = true
@@ -230,24 +254,6 @@ function moveBoard(){
             }
         }
 
-// Eventually will code in acceleration 
-
-// let updateTimer = 1000
-// setInterval(updateBoard,1000)
-//     function updateBoard(){
-//         setTimeout(timedown,updateTimer)
-//             function timedown(){
-//                 console.log(updateTimer)
-//                 let rngIndex = Math.floor(Math.random() * obsBoard.length)
-//                 gameBoard.unshift(obsBoard[rngIndex])
-//                 // gameBoard.unshift(emptyRow)
-//                 gameBoard.pop()
-//                 renderBoard()
-//                 collisionCheck()
-//                 updateTimer--
-//                 updateBoard()
-//             }
-//         }
 
 
 gameStart()

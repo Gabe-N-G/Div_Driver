@@ -22,6 +22,7 @@ white: #f8f8ff
     /* Ensures full height compatibility across devices */
     color: #f8f8ff;
     min-height: 100dvh;
+    /* height: 100vh; */
     margin: 0;
   }
 
@@ -36,6 +37,8 @@ white: #f8f8ff
     flex-wrap: nowrap;
     position: absolute;
     top: 30%;
+    left: 5%;
+    right: 5%;
   }
 
   #name-input{
@@ -45,6 +48,7 @@ white: #f8f8ff
   #game-screen{
     display: grid;
     grid-template-rows: .5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 100vh;
   }
 
   header h1{
@@ -80,7 +84,7 @@ white: #f8f8ff
   }
 
   #controls{
-    /* font-size: 2rem; */
+    font-size: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
