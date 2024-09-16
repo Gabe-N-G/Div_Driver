@@ -35,11 +35,6 @@ const obsBoard = [ //manually made, probably can make programially
     ["","X","X","X",""],
     ["","X","X","","X"],
     ["","","X","X","X"],
-    ["X","X","X","X",""],
-    ["","X","X","X","X"],
-    ["X","","X","X","X"],
-    ["X","X","","X","X"],
-    ["X","X","X","","X"],
 ]
 
 const playerBoard = [ //for visualization only player is currently at [7][2]
@@ -88,9 +83,8 @@ const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
 const controlsEL = document.querySelector("#controls")
 
-let gameRunning = false
-
-let storeInterval;
+//allows to access timers globally
+let scoreInterval;
 let moveInterval
 
 
@@ -111,16 +105,17 @@ function updatePlayer(){
 
 //gamestart 
 function gameStart(){
-    console.log(gameRunning)
     bestThree()    
     startBtn.addEventListener("click",()=>{
-        gameRunning = true
+        moveKB()
+        movePlayerButtons()
         greet.style.display = "none"
         name = nameInput.value
+        scoreTimer = 0
         scoreInterval = setInterval(time,100)
             function time(){
                 scoreTimer++
-                score = scoreTimer *100
+                score = scoreTimer * 100
                 scoreEL.innerText = `Score: ${score}`
     } 
         console.log(name)
@@ -129,7 +124,6 @@ function gameStart(){
 }
 
 function gameEnd(){
-    gameRunning = false
     greet.style.display = "flex"
     console.log (name + " " + score)
     highScoreArr.push({name, score})
@@ -153,8 +147,8 @@ function gameEnd(){
         ["","","","",""],)
     bestThree()
     name = ""
-    score = ""
-
+    controlsEL.removeEventListener("click", moveCarM)
+    window.removeEventListener("keydown", moveCarM)
 }
 
 //top 3 scores
@@ -175,7 +169,6 @@ function collisionCheck(){
     if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
         playerDiv.innerText = "💥"
         console.log("you crashed :(") 
-        // game over behavior here
         gameEnd()
     } else {
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
@@ -183,70 +176,43 @@ function collisionCheck(){
              if (playerDiv.innerText) {
                 playerDiv.innerText = "💥"
                 console.log("you crashed :(")
-                //game over behavior here
                 gameEnd()
             } else {
                 updatePlayer()
     }
 }
 
-
-//player movement keyboard here
-function movePlayerKB(){
-    if (gameRunning = true){
-    window.addEventListener(
-        "keydown",(e) =>{
-            if (e.key === "ArrowRight"){
-                playerDiv.innerText = ""
-                player.x++
-            } else if(e.key === "ArrowLeft"){
-                playerDiv.innerText = ""
-                player.x--
-            } else if(e.key === "ArrowUp"){
-                playerDiv.innerText = ""
-                player.y--
-            } else if(e.key === "ArrowDown"){
-                playerDiv.innerText = ""
-                player.y++
-            }
-            collisionCheck()
-        })
-    } else {
-
-    }
-} 
-
-//global variable game running
-// if true, do the event listners
-// if false, do nothing
-
-function movePlayerButtons(){ // can I combined with keyboard controls with and/ors?
-    if (gameRunning = true){
-        controlsEL.addEventListener(
-            "click",(e) =>{
-                console.log(e.target.id)
-                if (e.target.id === "right"){
-                    playerDiv.innerText = ""
-                    player.x++
-                } else if(e.target.id === "left"){
-                    playerDiv.innerText = ""
-                    player.x--
-                } else if(e.target.id === "up"){
-                    playerDiv.innerText = ""
-                    player.y--
-                } else if(e.target.id === "down"){
-                    playerDiv.innerText = ""
-                    player.y++
-                }
-                collisionCheck()
-        })
-    } else {
-
-    }
+//adding phone/window buttons controls
+function movePlayerButtons(){ 
+        controlsEL.addEventListener("click", moveCarM)
  }
 
+ //adding keyboard controls
+function moveKB(){
+    window.addEventListener("keydown",moveCarM)
+} 
+
+//catch-all function for both control types
+function moveCarM(e) {
+    console.log(e.target.id)
+    if (e.target.id === "right" || e.key === "ArrowRight"){
+        playerDiv.innerText = ""
+        player.x++
+    } else if(e.target.id === "left" ||e.key === "ArrowLeft"){
+        playerDiv.innerText = ""
+        player.x--
+    } else if(e.target.id === "up" || e.key === "ArrowUp"){
+        playerDiv.innerText = ""
+        player.y--
+    } else if(e.target.id === "down" ||e.key === "ArrowDown"){
+        playerDiv.innerText = ""
+        player.y++
+    }
+    collisionCheck()
+}
 
 
+//unshifts alternating obsticle arrays and empty arrays
 function moveBoard(){
     moveInterval = setInterval(updateBoard,500)
             let altRow = true
@@ -287,6 +253,4 @@ function moveBoard(){
 gameStart()
 renderBoard()
 updatePlayer()
-// moveBoard()
-movePlayerKB()
-movePlayerButtons()
+
