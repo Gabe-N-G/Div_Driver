@@ -56,6 +56,7 @@ let player = {
 }
 
 const emptyRow = ["","","","",""]
+const visCol = ["|","","|","","|","","|","","|"]
 
 const highScoreArr = [
     {name: "GG", score: 4},
@@ -86,12 +87,14 @@ const greet = document.querySelector("#greetings-screen")
 const hiScores = document.querySelector("#highscores")
 const row = document.querySelectorAll(".row")
 const controlsEL = document.querySelector("#controls")
+const vCol = document.querySelectorAll(".Vcol")
+const vCol2 = document.querySelectorAll(".Vcol2")
+
 
 //allows to access timers globally
 let scoreInterval;
 let moveInterval;
 let speedTimeout;
-
 
 
 //renders screen to match gameboard 
@@ -102,6 +105,16 @@ function renderBoard(){
     )
 }
 
+function renderVis(){
+    vCol.forEach((x,idx) => {
+        x.innerText = visCol[idx]
+        // console.log(vCol)
+    })
+    vCol2.forEach((x,idx) => {
+        x.innerText = visCol[idx]
+        // console.log(vCol)
+    })
+}
 //renders player to player coordinates
 function updatePlayer(){
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
@@ -232,13 +245,17 @@ function moveBoard(){
                 function updateBoard(){
                     if (altRow === true){
                         gameBoard.unshift(emptyRow)
+                        visCol.unshift("")
                     } if (altRow === false){
                         let rngIndex = Math.floor(Math.random() * obsBoard.length)
                         gameBoard.unshift(obsBoard[rngIndex])
+                        visCol.unshift("|")
                     }
                     altRow = !altRow
+                    visCol.pop()
                     gameBoard.pop()
                     renderBoard()
+                    renderVis()
                     speedTimeout = setTimeout(timedown)
                         function timedown(){
                         if(moveTimer >250){
@@ -276,5 +293,6 @@ function moveBoard(){
 
 gameStart()
 renderBoard()
+renderVis()
 updatePlayer()
 

@@ -23,7 +23,9 @@ white: #f8f8ff
     color: #f8f8ff;
     min-height: 100dvh;
     /* height: 100vh; */
-    margin: 0;
+    margin: 0;;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
   }
 
   #greetings-screen{
@@ -99,3 +101,16 @@ white: #f8f8ff
     font-size: 3rem;
   }
   
+  .Vis{
+    /* display:none */
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-color: #536878;
+    font-size: 6rem;
+  }
+
+  .Vis div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
