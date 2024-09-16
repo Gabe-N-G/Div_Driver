@@ -71,6 +71,8 @@ let score = 0
 let lives = 0
 let timer = 0
 let moveTimer = 1000
+let altRow = true
+
 
 
 let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
@@ -86,7 +88,8 @@ const controlsEL = document.querySelector("#controls")
 
 //allows to access timers globally
 let scoreInterval;
-let moveInterval
+let moveInterval;
+let speedTimeout;
 
 
 
@@ -126,6 +129,7 @@ function gameStart(){
 function gameEnd(){
     greet.style.display = "flex"
     highScoreArr.push({name, score})
+    clearTimeout(speedTimeout)
     clearInterval(scoreInterval)
     clearInterval(moveInterval)
     // console.log(highScoreArr)
@@ -164,6 +168,7 @@ function bestThree(){
 
 //checks if space is occupieed
 //console logs for debugging
+//If I don't check specificallly for X it will count the taxi as its own space and crash immediately.
 function collisionCheck(){
     // console.log("Player X: " + player.x  +"Player Y: " + player.y)
     if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
@@ -215,7 +220,6 @@ function moveCarM(e) {
 // function moveBoard(){
 //     moveInterval = setInterval(updateBoard,moveTimer)
 //             console.log(moveTimer)
-//             let altRow = true
 //             function updateBoard(){
 //                 if (altRow === true){
 //                     gameBoard.unshift(emptyRow)
@@ -227,14 +231,22 @@ function moveCarM(e) {
 //                 gameBoard.pop()
 //                 renderBoard()
 //                 collisionCheck()
-//                 setTimeout(timedown)
+//                 speedTimeout = setTimeout(timedown)
 //                     function timedown(){
-//                         moveTimer--
+//                         // console.log(moveTimer)
+//                     if(moveTimer >250){
+//                         clearInterval(moveInterval)
+//                         moveTimer = moveTimer- 50
 //                         moveBoard()
+//                     } else{
+//                         clearInterval(moveInterval)
+//                         moveTimer = 250
+//                         moveBoard()
+//                     }
 //                 }   
 //             }
 //         }
-//clears timer, sets to faster at ???
+
 
 // working version
 function moveBoard(){
