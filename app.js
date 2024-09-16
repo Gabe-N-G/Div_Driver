@@ -17,7 +17,7 @@ const obsBoard = [ //manually made, probably can make programially
     ["X","","","",""],
     ["","X","","",""],
     ["","","X","",""],
-    ["","","","x",""],
+    ["","","","X",""],
     ["","","","","X"],
     ["X","X","","",""],
     ["X","","X","",""],
@@ -57,7 +57,7 @@ const playerBoard = [ //for visualization only player is currently at [7][2]
 let player = {
     y:7,
     x:2,
-    character: "🚘"
+    character: "🚖"
 }
 
 const emptyRow = ["","","","",""]
@@ -67,15 +67,16 @@ const highScoreArr = [
     {name: "IS", score: 3},
     {name: "BST", score: 2},
 ]
-let sortedScore = highScoreArr.sort((a,b) =>(b.score -a.score))
+
+let sortedScore = []
 
 let name = ""
+let scoreTimer = 0
 let score = 0
-
-highScoreArr.push( {name, score})
-
 let lives = 0
 let timer = 0
+
+
 
 let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
 
@@ -89,7 +90,7 @@ const row = document.querySelectorAll(".row")
 const controlsEL = document.querySelector("#controls")
 
 
-//renders screen to match gamebaord 
+//renders screen to match gameboard 
 function renderBoard(){
     row.forEach((y,idy)=> 
         y.querySelectorAll(".column").forEach((x,idx) => 
@@ -104,23 +105,44 @@ function updatePlayer(){
 }
 
 //gamestart 
-startBtn.addEventListener("click",()=>{
-    greet.style.display = "none"
-    name = nameInput.value
-    setInterval(time,100)
-        function time(){
-        timer++
-        score = timer * 10
-        scoreEL.innerText = `Score: ${score}`
-    } 
-})
+function gameStart(){
+    bestThree()
+    startBtn.addEventListener("click",()=>{
+        greet.style.display = "none"
+        name = nameInput.value
+        const scoreInterval = setInterval(time,100)
+            function time(){
+            scoreTimer++
+            score = scoreTimer *100
+            scoreEL.innerText = `Score: ${score}`
+        } 
+        console.log(name)
+        moveBoard()
+        movePlayerKB()
+        movePlayerButtons()
+    })
+}
 
+function gameEnd(){
+    greet.style.display = "flex"
+    console.log (name + " " + score)
+    highScoreArr.push({name, score})
+    // clearInterval(scoreInterval)
+    console.log(highScoreArr)
+    bestThree()
+    name = ""
+    score = ""
+    
+}
 
 //top 3 scores
-for (i=0; i<3; i++){
-    let top3 = document.createElement("li")    
-    top3.appendChild(document.createTextNode(highScoreArr[i].name + "    " + highScoreArr[i].score))
-    hiScores.appendChild(top3)
+function bestThree(){
+    for (i=0; i<3; i++){
+        let top3 = document.createElement("li")
+        sortedScore = highScoreArr.sort((a,b) =>(b.score -a.score))    
+        top3.appendChild(document.createTextNode(sortedScore[i].   name + "    " + sortedScore[i].score))
+        hiScores.appendChild(top3)
+    }
 }
 
 //checks if space is occupieed
@@ -129,6 +151,7 @@ function collisionCheck(){
         playerDiv.innerText = "💥"
         console.log("you crashed :(") 
         // game over behavior here
+        gameEnd()
     } else {
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
         }
@@ -136,6 +159,7 @@ function collisionCheck(){
                 playerDiv.innerText = "💥"
                 console.log("you crashed :(")
                 //game over behavior here
+                gameEnd()
             } else {
                 updatePlayer()
     }
@@ -149,24 +173,20 @@ function movePlayerKB(){
             if (e.key === "ArrowRight"){
                 playerDiv.innerText = ""
                 player.x++
-                collisionCheck()
             } else if(e.key === "ArrowLeft"){
                 playerDiv.innerText = ""
                 player.x--
-                collisionCheck()
             } else if(e.key === "ArrowUp"){
                 playerDiv.innerText = ""
                 player.y--
-                collisionCheck()
             } else if(e.key === "ArrowDown"){
                 playerDiv.innerText = ""
                 player.y++
-                collisionCheck()
             }
+            collisionCheck()
         }
     )
 } 
-
 function movePlayerButtons(){ // can I combined with keyboard controls with and/ors?
     controlsEL.addEventListener(
         "click",(e) =>{
@@ -174,43 +194,41 @@ function movePlayerButtons(){ // can I combined with keyboard controls with and/
             if (e.target.id === "right"){
                 playerDiv.innerText = ""
                 player.x++
-                collisionCheck()
             } else if(e.target.id === "left"){
                 playerDiv.innerText = ""
                 player.x--
-                collisionCheck()
             } else if(e.target.id === "up"){
                 playerDiv.innerText = ""
                 player.y--
-                collisionCheck()
             } else if(e.target.id === "down"){
                 playerDiv.innerText = ""
                 player.y++
-                collisionCheck()
             }
+            collisionCheck()
         }
     )
 } 
 
 
-let altRow = true
-setInterval(updateBoard,500)
-    function updateBoard(){
-        if (altRow === true){
-            gameBoard.unshift(emptyRow)
-        } if (altRow === false){
-            let rngIndex = Math.floor(Math.random() * obsBoard.length)
-            gameBoard.unshift(obsBoard[rngIndex])
+function moveBoard(){
+    setInterval(updateBoard,500)
+            let altRow = true
+            function updateBoard(){
+                if (altRow === true){
+                    gameBoard.unshift(emptyRow)
+                } if (altRow === false){
+                    let rngIndex = Math.floor(Math.random() * obsBoard.length)
+                    gameBoard.unshift(obsBoard[rngIndex])
+                }
+                altRow = !altRow
+                gameBoard.pop()
+                renderBoard()
+                collisionCheck()
+            }
         }
-        altRow = !altRow
-        gameBoard.pop()
-        renderBoard()
-        collisionCheck()
-        }
-
 
 // Eventually will code in acceleration 
-//
+
 // let updateTimer = 1000
 // setInterval(updateBoard,1000)
 //     function updateBoard(){
@@ -229,10 +247,10 @@ setInterval(updateBoard,500)
 //         }
 
 
-
-
+gameStart()
 renderBoard()
 updatePlayer()
-movePlayerKB()
-movePlayerButtons()
+// moveBoard()
+// movePlayerKB()
+// movePlayerButtons()
 
