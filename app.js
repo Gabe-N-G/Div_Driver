@@ -200,7 +200,7 @@ function collisionCheck(){
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
         }
              if (playerDiv.innerText === "X") {
-                console.log(playerDiv.innerText)
+                // console.log(playerDiv.innerText)
                 playerDiv.innerText = "💥"
                 // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y)
                 gameEnd()
