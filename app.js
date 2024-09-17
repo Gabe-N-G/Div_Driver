@@ -69,13 +69,11 @@ let sortedScore = []
 let name = ""
 let scoreTimer = 0
 let score = 0
-let lives = 0
+let lives = 3
 let timer = 0
 let moveTimer = 1000
 let altRow = true
 let isRunning = false
-
-
 
 let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
 
@@ -90,6 +88,8 @@ const controlsEL = document.querySelector("#controls")
 const vCol = document.querySelectorAll(".Vcol")
 const vCol2 = document.querySelectorAll(".Vcol2")
 
+
+livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
 
 //allows to access timers globally
 let scoreInterval;
@@ -130,6 +130,7 @@ function gameStart(){
         movePlayerButtons()
         greet.style.display = "none"
         name = nameInput.value.toUpperCase()
+        lives = 3
         scoreTimer = 0
         scoreInterval = setInterval(time,100)
             function time(){
@@ -187,6 +188,15 @@ function bestThree(){
     }
 }
 
+function livesCheck(){
+    if (lives){
+        collisionCheck()
+    } else {
+        gameEnd()
+    }
+
+}
+
 //checks if space is occupieed
 //console logs for debugging
 //If I don't check specificallly for X it will count the taxi as its own space and crash immediately.
@@ -195,7 +205,11 @@ function collisionCheck(){
     if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
         playerDiv.innerText = "💥"
         // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y) 
-        gameEnd()
+        // gameEnd()
+        player.x = 2
+        player.y = 7
+        moveTimer = 1000
+        lives--
     } else {
     playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
         }
@@ -203,10 +217,13 @@ function collisionCheck(){
                 // console.log(playerDiv.innerText)
                 playerDiv.innerText = "💥"
                 // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y)
-                gameEnd()
+                // gameEnd()
+                moveTimer = 1000
+                lives--
             } else {
                 updatePlayer()
     }
+    livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
 }
 
 //adding phone/window buttons controls
@@ -234,13 +251,13 @@ function moveCarM(e) {
         playerDiv.innerText = ""
         player.y++
     }
-    collisionCheck()
+    livesCheck()
 }
 
 //test version with accelration
 function moveBoard(){
         moveInterval = setInterval(updateBoard,moveTimer)
-        collisionCheck()
+        livesCheck()
                 console.log(moveTimer)
                 function updateBoard(){
                     if (altRow === true){

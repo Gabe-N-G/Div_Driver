@@ -80,8 +80,8 @@ white: #f8f8ff
     flex-direction: row;
     background-color: #8f00ff;
     border: white 1px solid;
-    padding-top: 5px;
-    /* align-items: space-around; */
+    padding: 5px;
+    align-items: flex-end;
     justify-content: space-around;
 }
 
