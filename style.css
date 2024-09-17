@@ -42,6 +42,7 @@ white: #f8f8ff
     top: 30%;
     left: 5%;
     right: 5%;
+    border: white 20px double;
     border-radius: 5%;
     padding-left: 10px;
     padding-right: 10px;
