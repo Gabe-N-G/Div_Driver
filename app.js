@@ -1,6 +1,6 @@
 console.log ("Hello world!")
 
-const gameBoard = [
+const gameBoard = [ //initial game screen
     ["L","E","","T","S"],
     ["","G","","O",""],
     ["","","","",""],
@@ -37,18 +37,20 @@ const obsBoard = [ //manually made, probably can make programially
     ["","","X","X","X"],
 ]
 
-const playerBoard = [ //for visualization only player is currently at [7][2]
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","","",""],
-    ["","","🚘","",""],
-    ["","","","",""],
-]
+//for visualization only player is currently at [7][2]
+// const playerBoard = [ 
+//     ["","","","",""],
+//     ["","","","",""],
+//     ["","","","",""],
+//     ["","","","",""],
+//     ["","","","",""],
+//     ["","","","",""],
+//     ["","","","",""],
+//     ["","","🚘","",""],
+//     ["","","","",""],
+// ]
 
+//initial player values
 let player = {
     y:7,
     x:2,
@@ -59,8 +61,8 @@ const emptyRow = ["","","","",""]
 const visCol = ["|","","|","","|","","|","","|"]
 
 const highScoreArr = [
-    {name: "GG", score: 4},
-    {name: "IS", score: 3},
+    {name: "G_G", score: 4},
+    {name: "_IS", score: 3},
     {name: "BST", score: 2},
 ]
 
@@ -73,7 +75,6 @@ let lives = 3
 let timer = 0
 let moveTimer = 1000
 let altRow = true
-let isRunning = false
 
 let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
 
@@ -87,6 +88,7 @@ const row = document.querySelectorAll(".row")
 const controlsEL = document.querySelector("#controls")
 const vCol = document.querySelectorAll(".Vcol")
 const vCol2 = document.querySelectorAll(".Vcol2")
+const welcomeDiv = document.querySelector("#welcome")
 
 
 livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
@@ -105,14 +107,14 @@ function renderBoard(){
     )
 }
 
+
+//visualization boards on sides of tablet/desktop version.
 function renderVis(){
     vCol.forEach((x,idx) => {
         x.innerText = visCol[idx]
-        // console.log(vCol)
     })
     vCol2.forEach((x,idx) => {
         x.innerText = visCol[idx]
-        // console.log(vCol)
     })
 }
 //renders player to player coordinates
@@ -143,11 +145,12 @@ function gameStart(){
     })
 }
 
+//game ending logic
 function gameEnd(){
     isRunning = false
     greet.style.display = "flex"
     highScoreArr.push({name, score})
-    // clearTimeout(speedTimeout)
+    clearTimeout(speedTimeout)
     clearInterval(scoreInterval)
     clearInterval(moveInterval)
     // console.log(highScoreArr)
@@ -156,6 +159,7 @@ function gameEnd(){
     player.x = 2
     player.y = 7
     player.character = "🚖"
+    welcomeDiv.innerText = `Game over ${name} :( Final score: ${score}`
     gameBoard.splice(0,9)
     gameBoard.push(
         ["L","E","","T","S"],
@@ -167,9 +171,8 @@ function gameEnd(){
         ["","","","",""],
         ["","","","",""],
         ["","","","",""],)
-    // renderBoard()
     bestThree()
-    name = ""
+    // name = ""
     controlsEL.removeEventListener("click", moveCarM)
     window.removeEventListener("keydown", moveCarM)
     
@@ -188,6 +191,7 @@ function bestThree(){
     }
 }
 
+//allows lives to work
 function livesCheck(){
     if (lives){
         collisionCheck()
@@ -273,6 +277,8 @@ function moveBoard(){
                     gameBoard.pop()
                     renderBoard()
                     renderVis()
+                    // collisionCheck() 
+                    //this fixes some bugs but introduce others... (like explosion doesn't last anymore, but less flicker) :(
                     speedTimeout = setTimeout(timedown)
                         function timedown(){
                         if(moveTimer >250){
