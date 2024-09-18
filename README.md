@@ -33,6 +33,7 @@ Instructions:
 ### Stretch (from ultra basic to more advanced)
 
 * Basic refactoring/debugging/simplifying
+    * Example: because of the way I coded both movement/collision checking, there is a bit of unintended consequences when crashing the car and the car flickers as it moves across the board.
 
 * Making the the board iteraviely through JS instead of static with text changing in JS.
 
@@ -68,6 +69,9 @@ https://downloads.khinsider.com/game-soundtracks/album/competition-sega-rally-ch
 Car crash noise from Frogger (1981):
 https://www.computerarcheology.com/Arcade/Frogger/
 
+Car start noise
+https://www.videvo.net/royalty-free-sound-effects/peel-out/
+
 ## Technologies used:
 Html / CSS / Javascript
 Figma (for preplanning)
@@ -80,3 +84,7 @@ Gridbox/Flexbox
 
 ### Mobile:
 ![mobile view](mobile.png)
+
+
+
+

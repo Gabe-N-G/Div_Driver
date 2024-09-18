@@ -89,7 +89,12 @@ const controlsEL = document.querySelector("#controls")
 const vCol = document.querySelectorAll(".Vcol")
 const vCol2 = document.querySelectorAll(".Vcol2")
 const welcomeDiv = document.querySelector("#welcome")
+const crashSound = document.querySelector("#crash")
+const musicSound = document.querySelector("#music")
+const gameOverSound = document.querySelector("#gameOver")
+const startSound = document.querySelector("#gameStart")
 
+console.dir(musicSound)
 
 livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
 
@@ -127,6 +132,8 @@ function updatePlayer(){
 function gameStart(){
     bestThree()    
     startBtn.addEventListener("click",()=>{
+        musicSound.play()
+        startSound.play()
         renderBoard()
         moveKB()
         movePlayerButtons()
@@ -154,6 +161,9 @@ function gameEnd(){
     clearInterval(scoreInterval)
     clearInterval(moveInterval)
     // console.log(highScoreArr)
+    gameOverSound.play()
+    musicSound.pause()
+    musicSound.currentTime = 1
     altRow = true
     moveTimer = 1000
     player.x = 2
@@ -207,9 +217,11 @@ function livesCheck(){
 function collisionCheck(){
     // console.log("Player X: " + player.x  +"Player Y: " + player.y)
     if(player.x < 0 || player.x > 4 ||player.y < 0|| player.y >8){
+        crashSound.play()
         playerDiv.innerText = "💥"
         // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y) 
         // gameEnd()
+
         player.x = 2
         player.y = 7
         moveTimer = 1000
@@ -219,7 +231,9 @@ function collisionCheck(){
         }
              if (playerDiv.innerText === "X") {
                 // console.log(playerDiv.innerText)
+                crashSound.play()
                 playerDiv.innerText = "💥"
+                
                 // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y)
                 // gameEnd()
                 moveTimer = 1000
