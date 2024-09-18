@@ -132,9 +132,10 @@ function updatePlayer(){
 function gameStart(){
     bestThree()    
     startBtn.addEventListener("click",()=>{
+        console.log(musicSound)
         musicSound.play()
         startSound.play()
-        renderBoard()
+        renderBoard() 
         moveKB()
         movePlayerButtons()
         greet.style.display = "none"
