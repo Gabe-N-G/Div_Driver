@@ -58,7 +58,7 @@ let player = {
 }
 
 const emptyRow = ["","","","",""]
-const visCol = ["|","","|","","|","","|","","|"]
+const visCol = ["🌴","","🌴","","🌴","","🌴","","🌴"]
 
 const highScoreArr = [
     {name: "G_G", score: 4},
@@ -270,14 +270,14 @@ function moveBoard(){
                     } if (altRow === false){
                         let rngIndex = Math.floor(Math.random() * obsBoard.length)
                         gameBoard.unshift(obsBoard[rngIndex])
-                        visCol.unshift("|")
+                        visCol.unshift("🌴")
                     }
                     altRow = !altRow
                     visCol.pop()
                     gameBoard.pop()
                     renderBoard()
                     renderVis()
-                    // collisionCheck() 
+                    collisionCheck() 
                     //this fixes some bugs but introduce others... (like explosion doesn't last anymore, but less flicker) :(
                     speedTimeout = setTimeout(timedown)
                         function timedown(){

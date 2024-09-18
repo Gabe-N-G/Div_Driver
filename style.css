@@ -123,8 +123,8 @@ white: #f8f8ff
     display:none;
     /* display: grid; */
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    background-color: #536878;
-    font-size: 6rem;
+    background-color: rgb(28, 41, 123);
+    font-size: 4rem;
     border-style: solid;
     border-color: yellow;
     border-left-width: 10px;
@@ -161,3 +161,5 @@ white: #f8f8ff
       right:30%;
     }
   }
+
+  
