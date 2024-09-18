@@ -196,7 +196,7 @@ function bestThree(){
     }
     for (i=0; i<3; i++){
         let top3 = document.createElement("li")
-        sortedScore = highScoreArr.sort((a,b) =>(b.score -a.score))    
+        sortedScore = highScoreArr.sort((a,b) =>(b.score - a.score))    
         top3.appendChild(document.createTextNode(sortedScore[i].   name + "    " + sortedScore[i].score))
         hiScores.appendChild(top3)
     }
@@ -221,8 +221,6 @@ function collisionCheck(){
         crashSound.play()
         playerDiv.innerText = "💥"
         // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y) 
-        // gameEnd()
-
         player.x = 2
         player.y = 7
         moveTimer = 1000
@@ -234,9 +232,7 @@ function collisionCheck(){
                 // console.log(playerDiv.innerText)
                 crashSound.play()
                 playerDiv.innerText = "💥"
-                
                 // console.log("you crashed :(" + "Player X: " + player.x  +"Player Y: " + player.y)
-                // gameEnd()
                 moveTimer = 1000
                 lives--
             } else {
@@ -296,13 +292,13 @@ function moveBoard(){
                     //this fixes some bugs but introduce others... (like explosion doesn't last anymore, but less flicker) :(
                     speedTimeout = setTimeout(timedown)
                         function timedown(){
-                        if(moveTimer >250){
+                        if(moveTimer >300){
                             clearInterval(moveInterval)
                             moveTimer = moveTimer - 25
                             moveBoard()
                         } else{
                             clearInterval(moveInterval)
-                            moveTimer = 250
+                            moveTimer = 300
                             moveBoard()
                         }  
                     }

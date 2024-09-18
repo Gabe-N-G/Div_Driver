@@ -2,14 +2,28 @@
 # Div_Driver
 ![logo](image.png)
 
+## Screenshots:
+
+### Desktop:
+![desktop view](desktop.png)
+
+### Mobile:
+![mobile view](mobile.png)
+
 ## Figma link (some preplanning, not complete):
+This is a link to my figma file, which has the basic setup, some brainstorming/moodboarding for the styling of the game.
 [Figma file](https://embed.figma.com/design/G5T4DzZ2IkkOKNJNIIdpUI/Div-Driver?node-id=0-1&embed-host=share")
 
 ## What type of game is DivDriver?
 Div driver is a grid based driving game where the player avoids an endless randomly generated collection of obsticles. Inspiration was from the videogame spyhunter(Arcade, 1983) and other similar top down car games.
 
+## Technologies used:
+Html / CSS / Javascript
+Figma (for preplanning)
+Gridbox/Flexbox
+
 ## Getting started:
-Link: [Github](https://gabe-n-g.github.io/Div_Driver/)
+Playable Link: [Github](https://gabe-n-g.github.io/Div_Driver/)
 
 Instructions: 
 
@@ -32,25 +46,25 @@ Instructions:
 
 ### Stretch (from ultra basic to more advanced)
 
-* Basic refactoring/debugging/simplifying
+* ❌ Basic refactoring/debugging/simplifying
     * Example: because of the way I coded both movement/collision checking, there is a bit of unintended consequences when crashing the car and the car flickers as it moves across the board.
 
-* Making the the board iteraviely through JS instead of static with text changing in JS.
+* ❌ Making the the board iteraviely through JS instead of static with text changing in JS.
 
-* Score is kept by how many seconds the car is running without crashing.
-* Player can insert initials and high scores will be recorded at game over. Game will display top 3 scores.
-* Obstacles will be generated at random instead of being preset.
-* Obstacles will move towards the car faster and spawn more frequently as game goes on.
-* No checkmate situations - no obstacle spawns that the player cannot move through.
-* Player will have 3 lives
+* ✅ Score is kept by how many seconds the car is running without crashing.
+* ✅ Player can insert initials and high scores will be recorded at game over. Game will display top 3 scores.
+* ✅ Obstacles will be generated at random instead of being preset.
+* ✅ Obstacles will move towards the car faster and spawn more frequently as game goes on.
+* ✅ No checkmate situations - no obstacle spawns that the player cannot move through.
+* ✅ Player will have 3 lives
 
-* Game has music/sound effects
+* ✅ Game has music/sound effects
 
-* Desktop view shows additional information (full highscore list/player speed)
-* Player will get an extra life at set scores.
-* Bonus tokens will spawn on map that give extra score.
-* Changes in course instead of just random obstacles
-* Add localstorage for high scores. Make desktop view 10 high scores.
+* ❌ Desktop view shows additional information (full highscore list/player speed)
+* ❌ Player will get an extra life at set scores.
+* ❌ Bonus tokens will spawn on map that give extra score.
+* ❌ Changes in course instead of just random obstacles
+* ❌ Add localstorage for high scores. Make desktop view 10 high scores.
 
 ## Attributions:
 
@@ -72,18 +86,7 @@ https://www.computerarcheology.com/Arcade/Frogger/
 Car start noise
 https://www.videvo.net/royalty-free-sound-effects/peel-out/
 
-## Technologies used:
-Html / CSS / Javascript
-Figma (for preplanning)
-Gridbox/Flexbox
 
-## Screenshots:
-
-### Desktop:
-![desktop view](desktop.png)
-
-### Mobile:
-![mobile view](mobile.png)
 
 
 
