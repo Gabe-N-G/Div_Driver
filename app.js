@@ -94,8 +94,6 @@ const musicSound = document.querySelector("#music")
 const gameOverSound = document.querySelector("#gameOver")
 const startSound = document.querySelector("#gameStart")
 
-console.dir(musicSound)
-
 livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
 
 //allows to access timers globally
@@ -132,7 +130,7 @@ function updatePlayer(){
 function gameStart(){
     bestThree()    
     startBtn.addEventListener("click",()=>{
-        console.log(musicSound)
+        musicSound.volume = .5
         musicSound.play()
         startSound.play()
         renderBoard() 
@@ -273,7 +271,7 @@ function moveCarM(e) {
 function moveBoard(){
         moveInterval = setInterval(updateBoard,moveTimer)
         livesCheck()
-                console.log(moveTimer)
+                console.log(Math.round(1000/moveTimer * 36))
                 function updateBoard(){
                     if (altRow === true){
                         gameBoard.unshift(emptyRow)
@@ -288,7 +286,7 @@ function moveBoard(){
                     gameBoard.pop()
                     renderBoard()
                     renderVis()
-                    collisionCheck() 
+                    // collisionCheck() 
                     //this fixes some bugs but introduce others... (like explosion doesn't last anymore, but less flicker) :(
                     speedTimeout = setTimeout(timedown)
                         function timedown(){
