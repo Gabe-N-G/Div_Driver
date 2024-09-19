@@ -80,6 +80,9 @@ let playerDiv = document.querySelector("#y"+player.y+"x"+player.x)
 
 const scoreEL = document.querySelector("#score")
 const livesEL = document.querySelector("#lives")
+const bigLivesEL = document.querySelector("#livesbig")
+const speedEL = document.querySelector("#DVPH")
+const hiScoresD = document.querySelector("#highscoresdsk")
 const nameInput = document.querySelector("#name-input")
 const startBtn = document.querySelector("#Start")
 const greet = document.querySelector("#greetings-screen")
@@ -95,6 +98,7 @@ const gameOverSound = document.querySelector("#gameOver")
 const startSound = document.querySelector("#gameStart")
 
 livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
+bigLivesEL.innerText = `Lives: ${"🚖 ".repeat(lives)}`
 
 //allows to access timers globally
 let scoreInterval;
@@ -128,7 +132,8 @@ function updatePlayer(){
 
 //gamestart 
 function gameStart(){
-    bestThree()    
+    bestThree()
+    best()    
     startBtn.addEventListener("click",()=>{
         musicSound.volume = .5
         musicSound.play()
@@ -181,6 +186,7 @@ function gameEnd(){
         ["","","","",""],
         ["","","","",""],)
     bestThree()
+    best()
     // name = ""
     controlsEL.removeEventListener("click", moveCarM)
     window.removeEventListener("keydown", moveCarM)
@@ -195,11 +201,23 @@ function bestThree(){
     for (i=0; i<3; i++){
         let top3 = document.createElement("li")
         sortedScore = highScoreArr.sort((a,b) =>(b.score - a.score))    
-        top3.appendChild(document.createTextNode(sortedScore[i].   name + "    " + sortedScore[i].score))
+        top3.appendChild(document.createTextNode(sortedScore[i]. name + "    " + sortedScore[i].score))
         hiScores.appendChild(top3)
     }
 }
 
+function best(){
+    while(hiScoresD.firstChild){
+        hiScoresD.removeChild(hiScoresD.firstChild)
+    }
+    for (i=0; i<highScoreArr.length; i++){
+        let top = document.createElement("li")
+        sortedScore = highScoreArr.sort((a,b) =>(b.score - a.score))    
+        top.appendChild(document.createTextNode(sortedScore[i].name + "    " + sortedScore[i].score))
+        hiScoresD.appendChild(top)
+    }
+
+}
 //allows lives to work
 function livesCheck(){
     if (lives){
@@ -237,6 +255,8 @@ function collisionCheck(){
                 updatePlayer()
     }
     livesEL.innerText = `Lives: ${"🚖".repeat(lives)}`
+    bigLivesEL.innerText = `Lives: ${"🚖 ".repeat(lives)}`
+
 }
 
 //adding phone/window buttons controls
@@ -269,6 +289,7 @@ function moveCarM(e) {
 
 //test version with accelration
 function moveBoard(){
+        speedEL.innerText = `${Math.round(1000/moveTimer * 3600)}`
         moveInterval = setInterval(updateBoard,moveTimer)
         livesCheck()
                 console.log(Math.round(1000/moveTimer * 36))

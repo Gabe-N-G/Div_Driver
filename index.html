@@ -6,12 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>&lt;Div /&gt;river</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.typekit.net/uue0zew.css">
 </head>
 
 <!-- audio kept before the body as I have no intention of it being visible -->
 <audio id="crash" src="sound/dieRoad.mp3"></audio>
-<audio id="music"  volume="0" loop="true" src="sound/17-Move Me.mp3"></audio>
+<audio id="music"   loop="true" src="sound/17-Move Me.mp3"></audio>
 <audio id="gameOver"  src="sound/sega-rally-15-game-over-yeah1.mp3"></audio>
 <audio id="gameStart"  src="sound/IntegraRevPeelOutVe SR10104.mp3"></audio>
 
@@ -138,6 +139,24 @@
         <div class="Vcol2">8</div>
         <div class="Vcol2">9</div>
     </div>
+
+    <div id="desktop-info">
+        <div id = "intro">
+            <h1 id="heroDesk">&lt;Div /&gt;river</h1>
+            <h2>by Gabe Gutierrez</h2>
+            <a href="https://github.com/Gabe-N-G/Div_Driver">Github readme</a>
+        </div>
+        <div id="gameinfo">
+            <h3><span id="DVPH">0</span> xDPH <br><br> (Divs per Hour)</h3>
+            <div id="livesbig">Lives: 0</div>
+        </div>
+        <div>
+            Todays High Scores:
+            <ol id="highscoresdsk">
+            </ol>
+        </div>
+    </div>
+
         
     <div id="greetings-screen">
             <h1 id="welcome">Welcome to</h1> 
@@ -149,7 +168,7 @@
 
             <button id="Start">Start Drivin'</button>
 
-            <ol id="highscores">Todays High Scores:
+            <ol id="highscores">Todays Top 10:
             </ol>
     </div>
 

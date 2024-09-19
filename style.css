@@ -147,6 +147,10 @@ white: #f8f8ff
     border-color:white;
   }
 
+  #desktop-info{
+    display:none
+  }
+
   @media (min-width: 768px) {
     body {
       /* background-color: lightgreen; */
@@ -163,3 +167,55 @@ white: #f8f8ff
   }
 
   
+  @media (min-width: 1024px){
+    body{
+      grid-template-columns: 1fr 3fr 1fr 2fr;
+    }
+    
+    #heroDesk{
+      color:#228b22;
+      font-size: 3rem;
+    }
+
+    a{
+      color: cornflowerblue;
+    }
+
+    #desktop-info{
+      background-color:#536878;
+      color: #f8f8ff;
+      display:grid;
+      grid-template-rows: 1fr 3fr 3fr;
+      height: 100vh;
+      
+    }
+
+    #intro{
+      background: black;
+      /* display: flex;
+      flex-direction: column;
+      align-items: center; */
+    }
+
+    #DVPH{
+      font-size: 3.5rem;
+      font-style: italic;
+      color: red;
+    }
+
+    #desktop-info div{
+      padding: 10px;
+      border: white 10px dotted;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #livesbig {
+      border: 0px !important;
+      font-size: 2rem;
+    }
+
+
+
+  } 
