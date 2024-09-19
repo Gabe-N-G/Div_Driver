@@ -16,6 +16,7 @@ white: #f8f8ff
   body {
     background-color: #273Be2;
     /* Use a system font, if none are available use an available sans-sarif font */
+    /* azeret mono is downloaded by adobe fonts */
     font-family: "azeret-mono", monospace;
     font-weight: 300;
     font-style: normal;
@@ -192,9 +193,6 @@ white: #f8f8ff
 
     #intro{
       background: black;
-      /* display: flex;
-      flex-direction: column;
-      align-items: center; */
     }
 
     #DVPH{
@@ -215,7 +213,5 @@ white: #f8f8ff
       border: 0px !important;
       font-size: 2rem;
     }
-
-
 
   } 

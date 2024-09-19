@@ -60,7 +60,7 @@ Instructions:
 
 * ✅ Game has music/sound effects
 
-* ❌ Desktop view shows additional information (full highscore list/player speed)
+* ✅ Desktop view shows additional information (full highscore list/player speed)
 * ❌ Player will get an extra life at set scores.
 * ❌ Bonus tokens will spawn on map that give extra score.
 * ❌ Changes in course instead of just random obstacles
@@ -69,12 +69,14 @@ Instructions:
 ## Attributions:
 
 Music: "Move me" from the Ridge Racer Type 4 soundtrack (track 17)
+
 Namco "R4 -Ridge Racer Type 4-" Sound Team
     Kohta Takahashi: 1, 7, 13, 17, 18
     Hiroshi Okubo: 2, 3, 5, 6, 12, 14, 19, 22~25
     Asuka Sakai: 4, 8, 11, 14, 20, 21
     Tetsukazu Nakanishi: 9, 15
     Koji Nakagawa: 10,16
+
 https://archive.org/details/r4ridgeracertype4directaudioflac/17-Move+Me.flac
 
 Game over noise from From Sega Rally Championship (Sega, 1995, SAT):

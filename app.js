@@ -13,7 +13,7 @@ const gameBoard = [ //initial game screen
 ]
 
 
-const obsBoard = [ //manually made, probably can make programially
+const obsBoard = [ //manually made, probably can make programmatically (spelling corrected so I can pass class)
     ["X","","","",""],
     ["","X","","",""],
     ["","","X","",""],
@@ -206,6 +206,7 @@ function bestThree(){
     }
 }
 
+//desktop big top scores (buggy, will fix later)
 function best(){
     while(hiScoresD.firstChild){
         hiScoresD.removeChild(hiScoresD.firstChild)
@@ -216,8 +217,8 @@ function best(){
         top.appendChild(document.createTextNode(sortedScore[i].name + "    " + sortedScore[i].score))
         hiScoresD.appendChild(top)
     }
-
 }
+
 //allows lives to work
 function livesCheck(){
     if (lives){
@@ -261,10 +262,10 @@ function collisionCheck(){
 
 //adding phone/window buttons controls
 function movePlayerButtons(){ 
-        controlsEL.addEventListener("click", moveCarM)
+    controlsEL.addEventListener("click", moveCarM)
  }
 
- //adding keyboard controls
+//adding keyboard controls
 function moveKB(){
     window.addEventListener("keydown", moveCarM)
 } 
@@ -308,7 +309,7 @@ function moveBoard(){
                     renderBoard()
                     renderVis()
                     // collisionCheck() 
-                    //this fixes some bugs but introduce others... (like explosion doesn't last anymore, but less flicker) :(
+                    //this fixes some bugs but introduces others... (like explosion doesn't last anymore, but less flicker) :(
                     speedTimeout = setTimeout(timedown)
                         function timedown(){
                         if(moveTimer >300){
